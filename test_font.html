@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>字体预览</title>
+<style>
+  @font-face {
+    font-family: "TestFont";
+    src: url("font_build/build/MyColorZh.ttf") format("truetype");
+  }
+  body {
+    font-family: system-ui, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background: #f5f5f5;
+  }
+  h1 { font-size: 20px; }
+  .controls {
+    margin: 16px 0;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .controls label { font-size: 14px; }
+  .controls input[type="range"] { width: 200px; }
+  .controls input[type="text"] { width: 300px; padding: 4px 8px; }
+  #size-val { min-width: 40px; display: inline-block; }
+  .preview {
+    font-family: "TestFont", sans-serif;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    line-height: 1.6;
+    word-break: break-all;
+  }
+  .fallback-note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<h1>字体预览 — TestFont</h1>
+
+<div class="controls">
+  <label>字号: <input type="range" id="size" min="12" max="200" value="64"> <span id="size-val">64px</span></label>
+</div>
+<div class="controls">
+  <label>测试文字: <input type="text" id="input" value="优美胜于丑陋"></label>
+</div>
+
+<div class="preview" id="preview">优美胜于丑陋</div>
+
+<p class="fallback-note">如果字符显示为系统默认字体，说明该字符不在生成的字体中。将 .ttf 文件放在与此 HTML 同目录下即可。</p>
+
+<script>
+  const preview = document.getElementById("preview");
+  const sizeInput = document.getElementById("size");
+  const sizeVal = document.getElementById("size-val");
+  const textInput = document.getElementById("input");
+
+  sizeInput.addEventListener("input", () => {
+    preview.style.fontSize = sizeInput.value + "px";
+    sizeVal.textContent = sizeInput.value + "px";
+  });
+  textInput.addEventListener("input", () => {
+    preview.textContent = textInput.value;
+  });
+  preview.style.fontSize = "64px";
+</script>
+</body>
+</html>
